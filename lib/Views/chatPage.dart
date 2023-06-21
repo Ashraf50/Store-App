@@ -46,9 +46,9 @@ class _ChatPageState extends State<ChatPage> {
           return SafeArea(
             child: Scaffold(
               appBar: AppBar(
-                 iconTheme: IconThemeData(
-            color: Colors.black,
-          ),
+                iconTheme: IconThemeData(
+                  color: Colors.black,
+                ),
                 centerTitle: true,
                 automaticallyImplyLeading: false,
                 backgroundColor: AppBarColor,
