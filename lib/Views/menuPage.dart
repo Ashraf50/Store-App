@@ -11,8 +11,6 @@ import 'package:store_app/Views/Categories.dart';
 import 'package:store_app/Views/checkOut.dart';
 import 'package:store_app/constant/colors.dart';
 import 'package:store_app/regestrationPages/SignIn.dart';
-
-import '../widget/CustomListTile.dart';
 import 'Favorite.dart';
 
 class MenuPage extends StatefulWidget {
@@ -78,7 +76,6 @@ class _MenuPageState extends State<MenuPage> {
     return Scaffold(
         backgroundColor: Colors.grey[300],
         appBar: AppBar(
-          // elevation: 0,
           centerTitle: true,
           backgroundColor: AppBarColor,
           title: const Text(
@@ -127,86 +124,28 @@ class _MenuPageState extends State<MenuPage> {
                                             ))
                                         : CircleAvatar(
                                             maxRadius: 60,
-                                            backgroundImage:
-                                                NetworkImage(data["imgLink"]))
+                                            backgroundImage: NetworkImage(
+                                              data["imgLink"],
+                                            ))
                                     : ClipOval(
-                                        child: Image.file(imgPath!,
-                                            height: 145,
-                                            width: 145,
-                                            fit: BoxFit.cover)),
+                                        child: Image.file(
+                                        imgPath!,
+                                        height: 145,
+                                        width: 145,
+                                        fit: BoxFit.cover,
+                                      )),
                                 Positioned(
-                                    bottom: -5,
-                                    right: -12,
-                                    child: IconButton(
-                                        onPressed: () {
-                                          showModalBottomSheet(
-                                              context: context,
-                                              builder: (BuildContext context) {
-                                                return Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: Container(
-                                                        height: 150,
-                                                        child: Column(
-                                                            children: [
-                                                              GestureDetector(
-                                                                  onTap: () {
-                                                                    ChoosePhoto();
-                                                                  },
-                                                                  child: Container(
-                                                                      width: double
-                                                                          .infinity,
-                                                                      height:
-                                                                          50,
-                                                                      decoration: BoxDecoration(
-                                                                          borderRadius: BorderRadius.circular(
-                                                                              15)),
-                                                                      child: Center(
-                                                                          child: Text(
-                                                                              "Choose Photo",
-                                                                              style: TextStyle(fontSize: 20, color: Colors.blue))))),
-                                                              GestureDetector(
-                                                                  onTap: () {
-                                                                    TakePhoto();
-                                                                  },
-                                                                  child: Container(
-                                                                      width: double
-                                                                          .infinity,
-                                                                      height:
-                                                                          50,
-                                                                      decoration: BoxDecoration(
-                                                                          borderRadius: BorderRadius.circular(
-                                                                              15)),
-                                                                      child: Center(
-                                                                          child: Text(
-                                                                              "Take Photo",
-                                                                              style: TextStyle(fontSize: 20, color: Colors.blue))))),
-                                                              GestureDetector(
-                                                                  onTap: () {
-                                                                    Navigator.pop(
-                                                                        context);
-                                                                  },
-                                                                  child: Container(
-                                                                      width: double
-                                                                          .infinity,
-                                                                      height:
-                                                                          50,
-                                                                      decoration: BoxDecoration(
-                                                                          borderRadius: BorderRadius.circular(
-                                                                              15)),
-                                                                      child: Center(
-                                                                          child: Text(
-                                                                              "Cancel",
-                                                                              style: TextStyle(fontSize: 20, color: Colors.blue)))))
-                                                            ])));
-                                              });
-                                        },
-                                        icon: Icon(
-                                          Icons.add_a_photo,
-                                          color: const Color.fromARGB(
-                                              173, 0, 0, 0),
-                                        )))
+                                  bottom: -5,
+                                  right: -12,
+                                  child: IconButtonCamera(
+                                    ChoosePhoto: () {
+                                      ChoosePhoto();
+                                    },
+                                    TakePhoto: () {
+                                      TakePhoto();
+                                    },
+                                  ),
+                                )
                               ]),
                             ),
                             const SizedBox(
@@ -225,9 +164,10 @@ class _MenuPageState extends State<MenuPage> {
                             ),
                             Text("${userDetails!.email}",
                                 style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
-                                    color: Colors.grey)),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                  color: Colors.grey,
+                                )),
                             const SizedBox(height: 10)
                           ]),
                     ),
@@ -321,9 +261,141 @@ class _MenuPageState extends State<MenuPage> {
               } else {
                 return Center(
                     child: SpinKitFadingCircle(
-                        color: Color.fromARGB(255, 194, 191, 189),
-                        size: 160.0));
+                  color: Color.fromARGB(255, 194, 191, 189),
+                  size: 160.0,
+                ));
               }
             }));
+  }
+}
+
+class IconButtonCamera extends StatelessWidget {
+  final void Function()? ChoosePhoto;
+  final void Function()? TakePhoto;
+  const IconButtonCamera({
+    required this.ChoosePhoto,
+    required this.TakePhoto,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+        onPressed: () {
+          showModalBottomSheet(
+              context: context,
+              builder: (BuildContext context) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    height: 150,
+                    child: Column(
+                      children: [
+                        TextButton(
+                          title: "Choose photo",
+                          onTap: ChoosePhoto,
+                        ),
+                        TextButton(
+                          title: "Take photo",
+                          onTap: TakePhoto,
+                        ),
+                        TextButton(
+                          title: "Cancel",
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              });
+        },
+        icon: Icon(
+          Icons.add_a_photo,
+          color: const Color.fromARGB(173, 0, 0, 0),
+        ));
+  }
+}
+
+class TextButton extends StatelessWidget {
+  final void Function()? onTap;
+  final String title;
+  const TextButton({
+    required this.onTap,
+    required this.title,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: double.infinity,
+        height: 50,
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(15)),
+        child: Center(
+          child: Text(
+            title,
+            style: TextStyle(fontSize: 20, color: Colors.blue),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// ignore: must_be_immutable
+class CustomListTile extends StatelessWidget {
+  final String Title;
+  final void Function()? onTap;
+  final Icon icon;
+  const CustomListTile({
+    required this.Title,
+    required this.icon,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        color: Colors.white,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: Row(
+                children: [
+                  icon,
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Text(
+                    Title,
+                    style: TextStyle(
+                        color: Color.fromARGB(255, 124, 124, 124),
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.arrow_forward_ios,
+                    color: Colors.grey,
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }

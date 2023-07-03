@@ -1,9 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:store_app/provider.dart/cart.dart';
 import 'package:store_app/provider.dart/googleSignIn.dart';
+import 'package:store_app/regestrationPages/Authcubit/auth_cubit.dart';
 import 'package:store_app/regestrationPages/SignIn.dart';
 import 'Views/bottomNavigationBar.dart';
 import 'constant/snackBar.dart';
@@ -14,7 +16,6 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
   runApp(const MyApp());
 }
 
@@ -39,6 +40,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) {
           return GoogleSignInProvider();
         }),
+        BlocProvider(
+          create: (context) => AuthCubit(),
+        ),
       ],
       child: MaterialApp(
         routes: {

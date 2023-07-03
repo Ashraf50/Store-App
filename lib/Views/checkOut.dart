@@ -76,9 +76,7 @@ class _CheckoutState extends State<Checkout> {
           child: Column(
             children: [
               Expanded(
-                
                 child: ListView.builder(
-                  // padding: EdgeInsets.all(5),
                   itemCount: Instance_of_cart.selectedProduct.length,
                   itemBuilder: (context, index) {
                     return Padding(

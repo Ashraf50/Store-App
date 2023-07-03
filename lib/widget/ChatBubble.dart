@@ -23,7 +23,10 @@ class ChatBubble extends StatelessWidget {
         ),
         child: Text(
           massage.message,
-          style: TextStyle(fontSize: 18, color: Colors.white),
+          style: TextStyle(
+            fontSize: 18,
+            color: Colors.white,
+          ),
         ),
       ),
     );

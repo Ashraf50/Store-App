@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:store_app/constant/colors.dart';
-
 import '../Models/messageModel.dart';
 import '../widget/ChatBubble.dart';
 
@@ -13,18 +12,13 @@ class ChatPage extends StatefulWidget {
   @override
   State<ChatPage> createState() => _ChatPageState();
 }
-
 class _ChatPageState extends State<ChatPage> {
   final massage_controller = TextEditingController();
   final _controller = ScrollController();
   final user_details = FirebaseAuth.instance.currentUser;
-
-  CollectionReference messeges =
-      FirebaseFirestore.instance.collection("Masages");
+  CollectionReference massages = FirebaseFirestore.instance.collection("Masages");
   send_message() {
-    CollectionReference users =
-        FirebaseFirestore.instance.collection("Masages");
-    users.add(
+    massages.add(
       {
         'message': massage_controller.text,
         "createdAt": DateTime.now(),
@@ -32,11 +26,10 @@ class _ChatPageState extends State<ChatPage> {
       },
     );
   }
-
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: messeges.orderBy("createdAt", descending: true).snapshots(),
+      stream: massages.orderBy("createdAt", descending: true).snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           List massages_list = [];
@@ -101,7 +94,6 @@ class _ChatPageState extends State<ChatPage> {
                               await send_message();
                               massage_controller.clear();
                               _controller.animateTo(0,
-                                  // _controller.position.maxScrollExtent,
                                   duration: Duration(microseconds: 1),
                                   curve: Curves.fastOutSlowIn);
                             },

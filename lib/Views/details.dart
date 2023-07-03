@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:store_app/Categories/MenClothingCategory.dart';
+import 'package:store_app/Categories/WomanClothingCategory.dart';
+import 'package:store_app/Categories/electronicsCategories.dart';
+import 'package:store_app/Categories/jeweleryCategory.dart';
 import 'package:store_app/Models/ProductModel.dart';
 import '../constant/colors.dart';
 import '../provider.dart/cart.dart';
@@ -145,7 +149,37 @@ class _DetailsState extends State<Details> {
                   ],
                 ),
                 TextButton.icon(
-                  onPressed: () {},
+                  onPressed: () {
+                    if (widget.product.Category == "men's clothing") {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MenCategories(),
+                        ),
+                      );
+                    } else if (widget.product.Category == "women's clothing") {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => WomanCategories(),
+                        ),
+                      );
+                    } else if (widget.product.Category == "jewelery") {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => jeweleryCategories(),
+                        ),
+                      );
+                    } else if (widget.product.Category == "electronics") {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ElectronicsCategories(),
+                        ),
+                      );
+                    }
+                  },
                   icon: Icon(
                     Icons.location_on,
                     color: Colors.grey[700],

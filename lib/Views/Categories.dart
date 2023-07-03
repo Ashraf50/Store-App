@@ -3,9 +3,7 @@ import 'package:store_app/Categories/MenClothingCategory.dart';
 import 'package:store_app/Categories/WomanClothingCategory.dart';
 import 'package:store_app/Categories/jeweleryCategory.dart';
 import 'package:store_app/constant/colors.dart';
-
 import '../Categories/electronicsCategories.dart';
-import '../widget/customCardCategories.dart';
 
 class Categories extends StatefulWidget {
   const Categories({super.key});
@@ -89,3 +87,52 @@ class _CategoriesState extends State<Categories> {
     );
   }
 }
+
+
+class CustomCardOfCategory extends StatelessWidget {
+  final String Title;
+  final String Image;
+  final void Function()? onTap;
+  const CustomCardOfCategory({
+    required this.Title,
+    required this.Image,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.only(top: 15, bottom: 15, left: 8, right: 8),
+        decoration: BoxDecoration(
+          color: Colors.white,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            CircleAvatar(
+              radius: 30,
+              backgroundImage: AssetImage(
+                Image,
+              ),
+            ),
+            Row(
+              children: [
+                Text(
+                  Title,
+                  style: TextStyle(fontSize: 20),
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                Icon(Icons.arrow_forward_ios),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
