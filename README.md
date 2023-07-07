@@ -1,16 +1,8 @@
 # store_app
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Developed a store application using Flutter framework and Postman
+for API testing. - Integrated a RESTful API to fetch product data from
+the server and display it in the app. - Utilized Postman for API testing
+and ensuring proper communication between the app and the server
+chat inside the app
+![Uploading Screenshot 2023-07-07 160541.png…]()
